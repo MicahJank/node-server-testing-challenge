@@ -14,9 +14,9 @@ configureMiddleware(server);
 
 server.use('/api', apiRouter);
 
-server.get('/', (req, res) => {
-    res.send('<h1>Welcome to my backend server for testing!</h1>');
-});
+// server.get('/', (req, res) => {
+//     res.send('<h1>Welcome to my backend server for testing!</h1>');
+// });
 
 
 
