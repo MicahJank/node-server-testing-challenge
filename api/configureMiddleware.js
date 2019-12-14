@@ -1,18 +1,9 @@
+// rather than do all this inside the server.js file i have set this up so all the middleware can be imported into this file and used
+// the result is then exported into the server file
 const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
 const morgan = require('morgan');
-
-
-// my middleware
-// function logger(req, res, next) {
-//     console.log({
-//         request_method: req.method,
-//         request_url: req.url,
-//         timestamp: Date().toString()
-//     });
-//     next();
-// };
 
 
 
