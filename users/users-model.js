@@ -9,17 +9,27 @@ module.exports = {
 
 
 function find() {
-    return null;
+    return db('users');
 }
 
-function findById() {
-    return null;
+function findById(id) {
+    return db('users').where({id}).first();
 }
 
-function addUser() {
-    return null;
+function addUser(user) {
+    return db('users').insert(user)
+           .then(ids => {
+               const [id] = ids;
+               return findById(id)
+           }) 
 }
 
-function removeUser() {
-    return null;
+function removeUser(id) {
+    return db('users').where('id', id).del()
+            .then(count => {
+                return db('users');
+            })
+            .then(users => {
+                return users
+            })
 }
