@@ -52,6 +52,6 @@ describe('server.js', () => {
                     .then(res => {
                         expect(res.text).toMatch(/Welcome to my backend server for testing!/);
                     });
-        });
+        }); 
     })
 })
