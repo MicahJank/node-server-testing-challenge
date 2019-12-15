@@ -1,17 +1,22 @@
 const router = require('express').Router();
 const Users = require('../users/users-model.js');
-const checkAuth = require('./checkAuth.js');
 
-const db = require('../data/dbConfig.js');
+const bcrypt = require('bcryptjs');
+
+const genToken = require('./generateToken-helper.js');
 
 
 // /api/users
 router.post('/', (req, res) => {
-    const user = req.body;
+    let user = req.body;
+
+    const hash = bcrypt.hashSync(user.password, 4);
+    user.password = hash;
 
     Users.addUser(user)
         .then(newUser => {
-            res.status(201).json(newUser);
+            const token = genToken(newUser);
+            res.status(201).json({ created_user: newUser, token: token });
         })
         .catch(err => {
             res.status(500).json({ message: 'An error occured while trying to register the user.', error: err })

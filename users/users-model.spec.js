@@ -36,11 +36,21 @@ describe('users model testing', () => {
         });
     });
 
+    describe('findBy', () => {
+        it('should find the user by some property passed in', async () => {
+            const user = await Users.findBy({ username: 'Micah' });
+
+            expect(user.username).toBe('Micah');
+        })
+    })
+
     describe('removeUser', () => {
         it('should remove the user with the specified id from the database and return the array of users with the user removed', async () => {
             const userList = await Users.removeUser(2);
 
             expect(userList).toHaveLength(1);
         })
-    })
+    });
+
+  
 })

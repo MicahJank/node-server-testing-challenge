@@ -5,11 +5,16 @@ module.exports = {
     findById,
     addUser,
     removeUser,
+    findBy
 }
 
 
 function find() {
     return db('users');
+}
+
+function findBy(filter) {
+    return db('users').where(filter).first();
 }
 
 function findById(id) {
