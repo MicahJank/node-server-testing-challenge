@@ -17,6 +17,19 @@ router.get('/', (req, res) => {
 })
 
 
+// /api/users/:id <-- endpoint to delete or get a user by id
+router.delete('/:id', (req, res) => {
+    const { id } = req.params;
+    Users.removeUser(id)
+         .then(users => {
+             res.json(users);
+         })
+         .catch(err => {
+             res.status(500).json({ message: 'There was an error while trying to remove the user from the database', error: err });
+         })
+})
+
+
 // /api/users/restricted
 // right now these two endpoints are retrieving the same data. Ideally in a real app
 // this data would be filtered somehow to show only specific users to those who are authenticated
