@@ -18,7 +18,6 @@ let id;
 beforeAll(done => {
     request(server).post('/api/register').send({ username: 'Jenny', password: 'jennyiscool' })
     .end((err, response) => {
-    console.log("TCL: response", response.body)
         token = response.body.token;
         id = response.body.created_user.id;
         done();
@@ -48,18 +47,18 @@ describe('users-router.js tests', () => {
         it('should require authentication', () => {
             return request(server).get('/api/users/restricted')
                     .then(res => {
-                        expect(res.status).toBe(400);
+                        expect(res.status).toBe(401);
                     })
         });
 
         it('should respond with JSON', () => {
-            // return request(server)
-            //         .get('/api/users/restricted')
-            //         .set('Authorization', `Bearer ${token}`)
-            //         .then(res => {
-            //             console.log(token)
-            //             expect(res.status).toBe(200);
-            //         })
+            return request(server)
+                    .get('/api/users/restricted')
+                    .set('Authorization', `Bearer ${token}`)
+                    .then(res => {
+                        expect(res.status).toBe(200);
+                        expect(res.type).toBe('application/json');
+                    })
         })
     })
 
@@ -74,7 +73,3 @@ describe('users-router.js tests', () => {
     })
 });
 
-
-async function clearDB() {
-    await db('users').truncate();
-}
