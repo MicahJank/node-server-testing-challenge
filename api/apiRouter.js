@@ -8,5 +8,10 @@ router.use('/register', registerRouter);
 router.use('/login', loginRouter);
 router.use('/users', usersRouter);
 
+router.get('/', (req, res) => {
+    res.send('<h1>This is the api</h1>');
+
+})
+
 
 module.exports = router;
